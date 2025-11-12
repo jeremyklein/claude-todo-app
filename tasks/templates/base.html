@@ -14,7 +14,12 @@
                 <a href="{% url 'dashboard' %}">Todo App</a>
             </div>
             {% if user.is_authenticated %}
-            <ul class="nav-menu">
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
                 <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
                 <li><a href="{% url 'task_list' %}">Tasks</a></li>
                 <li><a href="{% url 'task_create' %}">New Task</a></li>
@@ -43,5 +48,26 @@
             <p>&copy; 2025 Todo App - Track your tasks and effort points</p>
         </div>
     </footer>
+
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close menu when clicking on a link
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+    </script>
 </body>
 </html>

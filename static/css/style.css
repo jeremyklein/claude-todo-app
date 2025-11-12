@@ -629,10 +629,109 @@ footer {
     margin-top: 4rem;
 }
 
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s;
+    border-radius: 3px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Floating Action Button */
+.fab {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 56px;
+    height: 56px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    text-decoration: none;
+    font-size: 2rem;
+    transition: all 0.3s;
+    z-index: 100;
+}
+
+.fab:hover {
+    background-color: #2980b9;
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+
+.fab:active {
+    transform: scale(0.95);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
     .nav-menu {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background-color: #2c3e50;
         flex-direction: column;
+        gap: 0;
+        padding: 1rem 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .nav-menu.active {
+        max-height: 500px;
+    }
+
+    .nav-menu li {
+        padding: 0.75rem 1.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav-menu li:last-child {
+        border-bottom: none;
+    }
+
+    .user-info {
+        border-left: none;
+        border-top: 1px solid rgba(255,255,255,0.2);
+        padding-left: 0;
+        padding-top: 0.75rem;
+        margin-top: 0.5rem;
+        flex-direction: column;
+        align-items: flex-start;
         gap: 0.5rem;
     }
 
@@ -657,5 +756,13 @@ footer {
     .filter-form input[type="text"],
     .filter-form select {
         width: 100%;
+    }
+
+    .fab {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
     }
 }
