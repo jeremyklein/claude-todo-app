@@ -87,7 +87,10 @@ WSGI_APPLICATION = 'todo_project.wsgi.application'
 
 # Use DATABASE_URL if available (DigitalOcean App Platform), otherwise SQLite for development
 DATABASE_URL = os.environ.get('DATABASE_URL', '')
-if DATABASE_URL and DATABASE_URL.strip():
+
+# Handle case where DATABASE_URL contains a placeholder that hasn't been interpolated yet
+# This can happen during build time on App Platform before the database is ready
+if DATABASE_URL and DATABASE_URL.strip() and not DATABASE_URL.startswith('${'):
     DATABASES = {
         'default': dj_database_url.config(
             default=DATABASE_URL,
@@ -96,6 +99,7 @@ if DATABASE_URL and DATABASE_URL.strip():
         )
     }
 else:
+    # Default to SQLite for development or when database isn't ready yet
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
