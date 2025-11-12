@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.db.models import Count, Sum, Q
 from datetime import datetime, timedelta
 from .models import Task, Category, TaskCompletion, Note
+from .forms import TaskForm
 
 
 @login_required
@@ -133,9 +134,8 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
 class TaskCreateView(LoginRequiredMixin, CreateView):
     """Create a new task"""
     model = Task
+    form_class = TaskForm
     template_name = 'tasks/task_form.html'
-    fields = ['title', 'description', 'category', 'status', 'priority',
-              'effort_points', 'due_date', 'tags']
     success_url = reverse_lazy('task_list')
 
     def form_valid(self, form):
@@ -146,9 +146,8 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 class TaskUpdateView(LoginRequiredMixin, UpdateView):
     """Update an existing task"""
     model = Task
+    form_class = TaskForm
     template_name = 'tasks/task_form.html'
-    fields = ['title', 'description', 'category', 'status', 'priority',
-              'effort_points', 'due_date', 'tags']
     success_url = reverse_lazy('task_list')
 
     def get_queryset(self):

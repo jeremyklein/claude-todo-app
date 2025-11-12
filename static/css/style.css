@@ -374,6 +374,20 @@ h1, h2, h3 {
     font-family: inherit;
 }
 
+.form-group input[type="date"] {
+    cursor: pointer;
+}
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    background-color: #f0f0f0;
+}
+
 .form-group textarea {
     min-height: 100px;
     resize: vertical;
