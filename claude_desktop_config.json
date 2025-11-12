@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "django-todo": {
+      "command": "/Users/jeremyklein/development/todo-app/venv-mcp/bin/python",
+      "args": [
+        "/Users/jeremyklein/development/todo-app/mcp_server.py"
+      ],
+      "env": {
+        "DJANGO_SETTINGS_MODULE": "todo_project.settings",
+        "PYTHONPATH": "/Users/jeremyklein/development/todo-app"
+      }
+    }
+  }
+}

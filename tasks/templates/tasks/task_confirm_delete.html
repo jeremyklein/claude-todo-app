@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Task - Todo App{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Delete Task</h1>
+</div>
+
+<div class="confirm-delete">
+    <p>Are you sure you want to delete the task "<strong>{{ task.title }}</strong>"?</p>
+    <p class="warning">This action cannot be undone.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a href="{% url 'task_detail' task.pk %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

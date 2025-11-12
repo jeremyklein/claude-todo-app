@@ -1,0 +1,21 @@
+[Unit]
+Description=MCP HTTP Server for Django Todo App
+After=network.target postgresql.service
+
+[Service]
+User=todoapp
+Group=todoapp
+WorkingDirectory=/var/www/todo-app
+Environment="PATH=/var/www/todo-app/venv-mcp/bin"
+EnvironmentFile=/var/www/todo-app/.env.mcp.production
+ExecStart=/var/www/todo-app/venv-mcp/bin/python mcp_server_http.py
+
+Restart=on-failure
+RestartSec=10s
+
+# Logging
+StandardOutput=append:/var/log/todo-app/mcp-http.log
+StandardError=append:/var/log/todo-app/mcp-http-error.log
+
+[Install]
+WantedBy=multi-user.target

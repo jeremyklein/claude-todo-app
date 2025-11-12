@@ -1,0 +1,23 @@
+[Unit]
+Description=Gunicorn daemon for Django Todo App
+After=network.target
+
+[Service]
+User=todoapp
+Group=todoapp
+WorkingDirectory=/var/www/todo-app
+Environment="PATH=/var/www/todo-app/venv/bin"
+EnvironmentFile=/var/www/todo-app/.env.production
+ExecStart=/var/www/todo-app/venv/bin/gunicorn \
+    --workers 3 \
+    --bind unix:/var/www/todo-app/gunicorn.sock \
+    --timeout 60 \
+    --access-logfile /var/log/todo-app/gunicorn-access.log \
+    --error-logfile /var/log/todo-app/gunicorn-error.log \
+    todo_project.wsgi:application
+
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block title %}Analytics - Todo App{% endblock %}
+
+{% block content %}
+<h1>Analytics & Performance</h1>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3>Total Tasks Completed</h3>
+        <div class="stat-value">{{ total_tasks_completed }}</div>
+    </div>
+    <div class="stat-card">
+        <h3>Total Points Earned</h3>
+        <div class="stat-value">{{ total_points_earned }}</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Daily Points (Last 30 Days)</h2>
+    <div class="chart-container">
+        <table class="chart-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Points</th>
+                    <th>Visual</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for day in daily_points %}
+                <tr>
+                    <td>{{ day.date }}</td>
+                    <td>{{ day.points }}</td>
+                    <td>
+                        <div class="bar" style="width: {% if day.points > 0 %}{{ day.points|add:"0" }}0%{% else %}0{% endif %}; max-width: 100%;">
+                            {{ day.points }}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Weekly Points (Last 12 Weeks)</h2>
+    <div class="chart-container">
+        <table class="chart-table">
+            <thead>
+                <tr>
+                    <th>Week Starting</th>
+                    <th>Points</th>
+                    <th>Visual</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for week in weekly_points %}
+                <tr>
+                    <td>{{ week.week }}</td>
+                    <td>{{ week.points }}</td>
+                    <td>
+                        <div class="bar" style="width: {% if week.points > 0 %}{{ week.points }}%{% else %}0{% endif %}; max-width: 100%;">
+                            {{ week.points }}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Monthly Points (Last 12 Months)</h2>
+    <div class="chart-container">
+        <table class="chart-table">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Points</th>
+                    <th>Visual</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for month in monthly_points %}
+                <tr>
+                    <td>{{ month.month }}</td>
+                    <td>{{ month.points }}</td>
+                    <td>
+                        <div class="bar" style="width: {% if month.points > 0 %}{{ month.points }}%{% else %}0{% endif %}; max-width: 100%;">
+                            {{ month.points }}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if category_breakdown %}
+<div class="section">
+    <h2>Points by Category</h2>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Tasks Completed</th>
+                <th>Total Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cat in category_breakdown %}
+            <tr>
+                <td>{{ cat.task__category__name|default:"Uncategorized" }}</td>
+                <td>{{ cat.task_count }}</td>
+                <td>{{ cat.total_points }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<div class="section">
+    <h2>Recent Completions</h2>
+    {% if recent_completions %}
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Category</th>
+                <th>Points</th>
+                <th>Completed</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for completion in recent_completions %}
+            <tr>
+                <td><a href="{% url 'task_detail' completion.task.pk %}">{{ completion.task.title }}</a></td>
+                <td>{{ completion.task.category.name|default:"—" }}</td>
+                <td>{{ completion.effort_points }}</td>
+                <td>{{ completion.completed_at|date:"M d, Y g:i A" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No completed tasks yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

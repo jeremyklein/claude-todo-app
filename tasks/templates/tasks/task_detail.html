@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ task.title }} - Todo App{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>{{ task.title }}</h1>
+    <div class="task-actions">
+        <a href="{% url 'task_update' task.pk %}" class="btn">Edit</a>
+        {% if task.status != 'completed' %}
+        <a href="{% url 'task_complete' task.pk %}" class="btn btn-success">Mark Complete</a>
+        {% endif %}
+        <a href="{% url 'task_delete' task.pk %}" class="btn btn-danger">Delete</a>
+    </div>
+</div>
+
+<div class="task-detail">
+    <div class="detail-section">
+        <div class="badges">
+            <span class="status-badge status-{{ task.status }}">{{ task.get_status_display }}</span>
+            <span class="priority-badge priority-{{ task.priority }}">{{ task.get_priority_display }}</span>
+            <span class="effort-badge">{{ task.effort_points }} points</span>
+        </div>
+
+        {% if task.category %}
+        <div class="detail-row">
+            <strong>Category:</strong>
+            <span class="category" style="background-color: {{ task.category.color }}20; border-left: 3px solid {{ task.category.color }};">
+                {{ task.category.name }}
+            </span>
+        </div>
+        {% endif %}
+
+        {% if task.description %}
+        <div class="detail-row">
+            <strong>Description:</strong>
+            <p>{{ task.description }}</p>
+        </div>
+        {% endif %}
+
+        {% if task.tags %}
+        <div class="detail-row">
+            <strong>Tags:</strong>
+            <span>{{ task.tags }}</span>
+        </div>
+        {% endif %}
+
+        <div class="detail-row">
+            <strong>Created:</strong>
+            <span>{{ task.created_at|date:"M d, Y g:i A" }}</span>
+        </div>
+
+        {% if task.due_date %}
+        <div class="detail-row">
+            <strong>Due Date:</strong>
+            <span>{{ task.due_date|date:"M d, Y" }}</span>
+        </div>
+        {% endif %}
+
+        {% if task.completed_at %}
+        <div class="detail-row">
+            <strong>Completed:</strong>
+            <span>{{ task.completed_at|date:"M d, Y g:i A" }}</span>
+        </div>
+        {% endif %}
+
+        <div class="detail-row">
+            <strong>Last Updated:</strong>
+            <span>{{ task.updated_at|date:"M d, Y g:i A" }}</span>
+        </div>
+
+        {% if task.llm_suggested %}
+        <div class="detail-row">
+            <span class="badge">LLM Suggested</span>
+        </div>
+        {% endif %}
+
+        {% if task.llm_automatable %}
+        <div class="detail-row">
+            <span class="badge">LLM Automatable</span>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="notes-section">
+        <h2>Notes</h2>
+
+        {% if notes %}
+        <div class="notes-list">
+            {% for note in notes %}
+            <div class="note-item">
+                <div class="note-header">
+                    <strong>{{ note.user.username }}</strong>
+                    <span class="note-date">{{ note.created_at|date:"M d, Y g:i A" }}</span>
+                </div>
+                <p>{{ note.content }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No notes yet.</p>
+        {% endif %}
+
+        <form method="post" action="{% url 'add_note' task.pk %}" class="note-form">
+            {% csrf_token %}
+            <textarea name="content" placeholder="Add a note..." rows="3" required></textarea>
+            <button type="submit" class="btn">Add Note</button>
+        </form>
+    </div>
+</div>
+
+<div class="back-link">
+    <a href="{% url 'task_list' %}">&larr; Back to Tasks</a>
+</div>
+{% endblock %}
