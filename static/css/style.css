@@ -24,6 +24,9 @@ body {
     color: white;
     padding: 1rem 0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .navbar .container {
@@ -706,19 +709,23 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
+    .navbar .container {
+        position: relative;
+    }
+
     .hamburger {
         display: flex;
     }
 
     .nav-menu {
-        position: fixed;
-        top: 60px;
+        position: absolute;
+        top: 100%;
         left: 0;
         right: 0;
         background-color: #2c3e50;
         flex-direction: column;
         gap: 0;
-        padding: 1rem 0;
+        padding: 0;
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s ease-out;
@@ -727,6 +734,7 @@ footer {
 
     .nav-menu.active {
         max-height: 500px;
+        padding: 1rem 0;
     }
 
     .nav-menu li {
