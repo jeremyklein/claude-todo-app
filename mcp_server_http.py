@@ -885,7 +885,8 @@ app = Starlette(
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("MCP_PORT", 8080))
+    # Use PORT for App Platform compatibility, fallback to MCP_PORT for local dev
+    port = int(os.environ.get("PORT", os.environ.get("MCP_PORT", 8080)))
     host = os.environ.get("MCP_HOST", "0.0.0.0")
 
     logger.info("=" * 60)
