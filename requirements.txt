@@ -13,3 +13,13 @@ psycopg2-binary==2.9.10
 dj-database-url==2.2.0
 gunicorn==22.0.0
 whitenoise==6.7.0
+
+# MCP Server dependencies
+mcp==1.21.0
+starlette==0.50.0
+uvicorn==0.38.0
+sse-starlette==3.0.3
+python-dotenv==1.2.1
+httpx==0.28.1
+pydantic==2.12.4
+pydantic-settings==2.12.0
