@@ -202,7 +202,6 @@ h1, h2, h3 {
     font-size: 0.85rem;
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
-    background-color: #ecf0f1;
 }
 
 .category {
@@ -210,9 +209,25 @@ h1, h2, h3 {
     border-radius: 4px;
 }
 
-.effort-points {
+.task-meta .effort-points {
     background-color: #3498db;
     color: white;
+    font-weight: 500;
+}
+
+.task-meta .tags {
+    background-color: #9b59b6;
+    color: white;
+    font-weight: 500;
+}
+
+.tags-display {
+    background-color: #9b59b6;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-weight: 500;
+    display: inline-block;
 }
 
 .effort-badge {
