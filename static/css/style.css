@@ -198,27 +198,28 @@ h1, h2, h3 {
     margin-top: 0.5rem;
 }
 
-.task-meta span {
-    font-size: 0.85rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-}
-
 .category {
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
+    font-size: 0.85rem;
 }
 
 .task-meta .effort-points {
     background-color: #3498db;
     color: white;
     font-weight: 500;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
 }
 
 .task-meta .tags {
     background-color: #9b59b6;
     color: white;
     font-weight: 500;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
 }
 
 .tags-display {
